@@ -4,9 +4,9 @@ const { expect, test } = require('@jest/globals');
 test('creates an employee object', () => {
   const employee = new Employee("Dave",1,"test@email.com");
 
-  expect(employee.name).toEqual(expect.any(String));
-  expect(employee.id).toEqual(expect.any(Number));
-  expect(employee.email).toEqual(expect.any(String));
+  expect(employee.name).toBe('Dave');
+  expect(employee.id).toBe(1);
+  expect(employee.email).toBe('test@email.com');
 });
 
 test('gets employee name', () => {
