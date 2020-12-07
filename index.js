@@ -3,17 +3,7 @@ const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
-const { choices } = require('yargs');
-const { breakStatement } = require('@babel/types');
 let employees = [];
-
-
-// prompt user for employee entry
-// select role
-// enter information
-
-// create new employee object
-// prompt user for new employee
 
 const employeePrompt = () => {
   return inquirer.prompt([
@@ -65,11 +55,6 @@ const employeePrompt = () => {
   ])
 }
 
-const continuePrompt = () => {
-  return 
-}
-
-
 const newEmployee = () => {
   employeePrompt()
     .then(empData => {
@@ -107,14 +92,4 @@ const addEmployee = (data) => {
     })
 }
 
-
-//function init() {
-//  promptUser()
-//    .then(employeeData => {
-//      return generateHTML(employeeData)
-//    })
-//    .then(html => {
-//      writeToFile()
-//    })
-//}
 newEmployee();
