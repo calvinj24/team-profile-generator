@@ -12,7 +12,7 @@ li {
 header {
   width: 100%;
   height: auto;
-  background: blue;
+  background: #000000;
   color: white;
   display: flex;
   align-items: center;
@@ -47,10 +47,14 @@ header {
   font-size: 12px;
 }
 
+.employee a {
+  color: #FCA311;
+}
+
 .emp-head {
   padding: 10px;
   color:white;
-  background: lightblue;
+  background:#14213d;
 }
 
 .emp-info {
