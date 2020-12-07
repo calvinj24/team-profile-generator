@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
+header {
+  width: 100%;
+  height: auto;
+  background: blue;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapper {
+  margin: 10px 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.employee {
+  margin: 15px;
+  box-shadow: 8px 8px 3px rgba(20, 20, 20, .6);
+}
+
+.employee h2 {
+  font-size: 22px;
+}
+
+.employee h3 {
+  font-size: 16px;
+}
+
+.employee p, .employee a {
+  font-size: 12px;
+}
+
+.emp-head {
+  padding: 10px;
+  color:white;
+  background: lightblue;
+}
+
+.emp-info {
+  padding: 10px;
+}
+

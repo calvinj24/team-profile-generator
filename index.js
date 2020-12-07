@@ -1,9 +1,12 @@
 const inquirer = require('inquirer');
+const fs = require('fs');
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
+const generateHTML = require('./src/generateHTML');
 let employees = [];
+
 
 const employeePrompt = () => {
   return inquirer.prompt([
@@ -55,29 +58,15 @@ const employeePrompt = () => {
   ])
 }
 
-const newEmployee = () => {
+const newEmployees = () => {
+  let stop;
   employeePrompt()
-    .then(empData => {
-      addEmployee(empData);
-    })
-}
-
-const addEmployee = (data) => {
-  switch (data.role) {
-    case "Engineer":
-      employees.push(new Engineer(data.name, data.id, data.email, data.gitHub));
-      break;
-    case "Manager":
-      employees.push(new Manager(data.name, data.id, data.email, data.officeNumber));
-      break;
-    case "Intern":
-      employees.push(new Intern(data.name, data.id, data.email, data.school));
-      break;
-  }
-  console.log(employees);
-
-  // ask user if they would like to add a new employeee
-  inquirer
+  .then(empData => {
+    getEmployee(empData);
+  })
+  .then(emp => {
+    // ask user if they would like to add a new employeee
+    inquirer
     .prompt([
       {
         type: 'confirm',
@@ -87,9 +76,44 @@ const addEmployee = (data) => {
     ])
     .then(({another}) => {
       if (another) {
-        newEmployee();
+        newEmployees();
+      }
+      else {
+        stop=true;
+        return(employees);
       }
     })
+  .then(employees => {
+    if (stop) {
+      let html = generateHTML(employees);
+      fs.writeFile('./dist/index.html', html, err => {
+        if (err) throw err;
+      });
+    }
+  })
+  })
+}   
+
+const getEmployee = (data) => {
+  let employee;
+  switch (data.role) {
+    case "Engineer":
+      employee= new Engineer(data.name, data.id, data.email, data.gitHub);
+      break;
+    case "Manager":
+      employee = new Manager(data.name, data.id, data.email, data.officeNumber);
+      break;
+    case "Intern":
+      employee = new Intern(data.name, data.id, data.email, data.school);
+      break;
+  }
+  employees.push(employee)
+  return employee;
 }
 
-newEmployee();
+function init() {
+  newEmployees()
+
+}
+
+init();
