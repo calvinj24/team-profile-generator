@@ -4,7 +4,8 @@ const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const { choices } = require('yargs');
-let cont;
+const { breakStatement } = require('@babel/types');
+let employees = [];
 
 
 // prompt user for employee entry
@@ -14,7 +15,7 @@ let cont;
 // create new employee object
 // prompt user for new employee
 
-const newEmployee = () => {
+const employeePrompt = () => {
   return inquirer.prompt([
     {
       type: 'input',
@@ -25,6 +26,11 @@ const newEmployee = () => {
       type: 'input',
       name: 'id',
       message: "Enter employee's id:"
+    },
+    {
+      type: 'input',
+      name: 'email',
+      message: "Enter employee's email address:"
     },
     {
       type: 'list',
@@ -55,18 +61,51 @@ const newEmployee = () => {
       type: 'input',
       name: 'school',
       message: "Enter intern's school:"
-    }
+    },
   ])
 }
 
-//const inputTeam = () => {
-//  while (!cont) {
-//    newEmployee();
-//    inquirer.prompt
-//  }
-//
-//
-//}
+const continuePrompt = () => {
+  return 
+}
+
+
+const newEmployee = () => {
+  employeePrompt()
+    .then(empData => {
+      addEmployee(empData);
+    })
+}
+
+const addEmployee = (data) => {
+  switch (data.role) {
+    case "Engineer":
+      employees.push(new Engineer(data.name, data.id, data.email, data.gitHub));
+      break;
+    case "Manager":
+      employees.push(new Manager(data.name, data.id, data.email, data.officeNumber));
+      break;
+    case "Intern":
+      employees.push(new Intern(data.name, data.id, data.email, data.school));
+      break;
+  }
+  console.log(employees);
+
+  // ask user if they would like to add a new employeee
+  inquirer
+    .prompt([
+      {
+        type: 'confirm',
+        name: 'another',
+        message: 'Would you like to add another employee?'
+      }
+    ])
+    .then(({another}) => {
+      if (another) {
+        newEmployee();
+      }
+    })
+}
 
 
 //function init() {
